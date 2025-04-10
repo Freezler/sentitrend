@@ -1,4 +1,3 @@
-// Use server directive.
 'use server';
 
 /**
@@ -50,6 +49,25 @@ const analyzeCryptoSentimentFlow = ai.defineFlow<
   outputSchema: AnalyzeCryptoSentimentOutputSchema,
 },
 async input => {
-  const {output} = await analyzeSentimentPrompt(input);
-  return output!;
+  const maxRetries = 3;
+  let retryCount = 0;
+  let delay = 1000; // Initial delay of 1 second
+
+  while (retryCount < maxRetries) {
+    try {
+      const {output} = await analyzeSentimentPrompt(input);
+      return output!;
+    } catch (error: any) {
+      if (error.message.includes('Too Many Requests')) {
+        retryCount++;
+        console.warn(`Rate limit hit. Retry ${retryCount} of ${maxRetries}. Waiting ${delay}ms.`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2; // Exponential backoff
+      } else {
+        // If it's not a rate limit error, re-throw the error
+        throw error;
+      }
+    }
+  }
+  throw new Error('Failed to analyze sentiment after multiple retries.');
 });
