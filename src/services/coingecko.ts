@@ -20,73 +20,37 @@ export interface CryptoData {
   twentyFourHourChange: number;
 }
 
+const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
+
 /**
  * Asynchronously retrieves cryptocurrency data from CoinGecko.
  * @returns A promise that resolves to an array of CryptoData objects.
  */
 export async function getCryptoData(): Promise<CryptoData[]> {
-  // TODO: Implement this by calling the CoinGecko API.
+  const currency = 'usd';
+  const coinIds = ['bitcoin', 'ethereum', 'ripple', 'pi', 'walrus', 'solana', 'sui', 'jellyjelly', 'pnut', 'broc-cz']; // Replace with actual CoinGecko IDs
+  const url = `${COINGECKO_API_URL}?vs_currency=${currency}&ids=${coinIds.join(',')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h`;
 
-  return [
-    {
-      symbol: 'BTC',
-      price: 60000,
-      marketCap: 1000000000000,
-      twentyFourHourChange: 2.5,
-    },
-    {
-      symbol: 'ETH',
-      price: 3000,
-      marketCap: 360000000000,
-      twentyFourHourChange: -1.2,
-    },
-    {
-      symbol: 'XRP',
-      price: 0.50,
-      marketCap: 25000000000,
-      twentyFourHourChange: 0.5,
-    },
-    {
-      symbol: 'PI',
-      price: 0.00,
-      marketCap: 0,
-      twentyFourHourChange: 0.0,
-    },
-    {
-      symbol: 'WALRUS/USD',
-      price: 0.4774,
-      marketCap: 1000000000,
-      twentyFourHourChange: 1.0,
-    },
-    {
-      symbol: 'SOL',
-      price: 180.00,
-      marketCap: 80000000000,
-      twentyFourHourChange: 3.0,
-    },
-    {
-      symbol: 'SUI',
-      price: 1.20,
-      marketCap: 15000000000,
-      twentyFourHourChange: -0.8,
-    },
-    {
-      symbol: 'JELLYJELLY',
-      price: 0.05,
-      marketCap: 500000000,
-      twentyFourHourChange: 1.5,
-    },
-    {
-      symbol: 'PNUT',
-      price: 0.15,
-      marketCap: 100000000,
-      twentyFourHourChange: 2.0,
-    },
-    {
-      symbol: 'BROC CZ',
-      price: 2.50,
-      marketCap: 750000000,
-      twentyFourHourChange: -2.5,
-    },
-  ];
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Map the data from the API to the CryptoData interface
+    const cryptoData: CryptoData[] = data.map((item: any) => ({
+      symbol: item.symbol.toUpperCase(),
+      price: item.current_price,
+      marketCap: item.market_cap,
+      twentyFourHourChange: item.price_change_percentage_24h,
+    }));
+
+    return cryptoData;
+  } catch (error: any) {
+    console.error("Failed to fetch cryptocurrency data:", error);
+    throw new Error("Failed to fetch cryptocurrency data from CoinGecko API.");
+  }
 }

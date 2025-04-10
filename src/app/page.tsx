@@ -26,22 +26,46 @@ async function getSentimentSummary(symbol: string): Promise<string> {
 }
 
 export default function Home() {
-  const [cryptoData, setCryptoData] = useState<CryptoData[]>([]);
+  const [cryptoData, setCryptoData] = useState<CryptoData[] | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadData() {
-      const data = await getCryptoData();
-      setCryptoData(data);
+      setLoading(true);
+      try {
+        const data = await getCryptoData();
+        setCryptoData(data);
+        setError(null);
+      } catch (e: any) {
+        console.error("Failed to load crypto data:", e);
+        setError("Failed to load cryptocurrency data. Please try again later.");
+        setCryptoData(null);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadData();
   }, []);
 
+  if (loading) {
+    return <div>Loading cryptocurrency data...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {cryptoData.map((crypto) => (
-        <CryptoCard key={crypto.symbol} crypto={crypto} />
-      ))}
+      {cryptoData && Array.isArray(cryptoData) ? (
+        cryptoData.map((crypto) => (
+          <CryptoCard key={crypto.symbol} crypto={crypto} />
+        ))
+      ) : (
+        <div>No cryptocurrency data available.</div>
+      )}
     </div>
   );
 }
