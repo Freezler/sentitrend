@@ -28,7 +28,7 @@ const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
  */
 export async function getCryptoData(): Promise<CryptoData[]> {
   const currency = 'usd';
-  const coinIds = ['bitcoin', 'ethereum', 'ripple', 'pi', 'walrus', 'solana', 'sui', 'jellyjelly', 'pnut', 'broc-cz']; // Replace with actual CoinGecko IDs
+  const coinIds = ['bitcoin', 'pi', 'ripple', 'sui', 'solana', 'fartcoin'];
   const url = `${COINGECKO_API_URL}?vs_currency=${currency}&ids=${coinIds.join(',')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h`;
 
   try {
