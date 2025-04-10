@@ -1,1 +1,2 @@
-// Flows will be imported for their side effects in this file.
+import '@/ai/flows/generate-crypto-report.ts';
+import '@/ai/flows/analyze-crypto-sentiment.ts';
