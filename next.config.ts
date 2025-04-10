@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   // config options here
   outputDirectory: '.next',
   basePath: '/sentitrend',
+  render: false,
 
 };
 
