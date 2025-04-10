@@ -53,7 +53,7 @@ export async function getCryptoData(): Promise<CryptoData[]> {
       twentyFourHourChange: 0.0,
     },
     {
-      symbol: 'WALS',
+      symbol: 'WALRUS/USD',
       price: 1.00,
       marketCap: 1000000000,
       twentyFourHourChange: 1.0,
