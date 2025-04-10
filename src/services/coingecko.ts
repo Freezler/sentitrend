@@ -54,9 +54,39 @@ export async function getCryptoData(): Promise<CryptoData[]> {
     },
     {
       symbol: 'WALRUS/USD',
-      price: 1.00,
+      price: 0.4774,
       marketCap: 1000000000,
       twentyFourHourChange: 1.0,
+    },
+    {
+      symbol: 'SOL',
+      price: 180.00,
+      marketCap: 80000000000,
+      twentyFourHourChange: 3.0,
+    },
+    {
+      symbol: 'SUI',
+      price: 1.20,
+      marketCap: 15000000000,
+      twentyFourHourChange: -0.8,
+    },
+    {
+      symbol: 'JELLYJELLY',
+      price: 0.05,
+      marketCap: 500000000,
+      twentyFourHourChange: 1.5,
+    },
+    {
+      symbol: 'PNUT',
+      price: 0.15,
+      marketCap: 100000000,
+      twentyFourHourChange: 2.0,
+    },
+    {
+      symbol: 'BROC CZ',
+      price: 2.50,
+      marketCap: 750000000,
+      twentyFourHourChange: -2.5,
     },
   ];
 }
