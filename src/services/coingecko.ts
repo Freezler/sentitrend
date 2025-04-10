@@ -40,5 +40,23 @@ export async function getCryptoData(): Promise<CryptoData[]> {
       marketCap: 360000000000,
       twentyFourHourChange: -1.2,
     },
+    {
+      symbol: 'XRP',
+      price: 0.50,
+      marketCap: 25000000000,
+      twentyFourHourChange: 0.5,
+    },
+    {
+      symbol: 'PI',
+      price: 0.00,
+      marketCap: 0,
+      twentyFourHourChange: 0.0,
+    },
+    {
+      symbol: 'WALS',
+      price: 1.00,
+      marketCap: 1000000000,
+      twentyFourHourChange: 1.0,
+    },
   ];
 }
