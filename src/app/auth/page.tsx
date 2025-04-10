@@ -1,11 +1,11 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 
 async function signIn() {
   // TODO: Implement with Firebase Authentication
   alert('TODO: Implement with Firebase Authentication');
 }
-
-'use client';
 
 export default function AuthPage() {
   return (
