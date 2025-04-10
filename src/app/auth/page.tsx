@@ -5,10 +5,12 @@ async function signIn() {
   alert('TODO: Implement with Firebase Authentication');
 }
 
+'use client';
+
 export default function AuthPage() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold mb-4">Authentication</h1>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <h1 className="mb-4 font-bold text-2xl">Authentication</h1>
       <Button onClick={signIn}>Sign In</Button>
     </div>
   );
